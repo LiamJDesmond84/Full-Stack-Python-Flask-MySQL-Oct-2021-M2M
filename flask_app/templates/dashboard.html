@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <title>Video Games</title>
+    <style>
+        body {
+            background-color: darkgray;
+            
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+            
+        }
+        table {
+            background-color: lightgray;
+        }
+        #all_games {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body style="width: 100%;">
+    <h1>Welcome {{ user.first_name }}</h1>
+    <a href="/new/game"><button>Create a Game</button></a>
+            <a href="/logout"><button>Logout</button></a>
+    <div class="d-flex justify-content-around flex-wrap p-6" style="display: flex; flex-direction: column; align-items: center;">
+        <h1>Video Games</h1>
+        <div class="card col-4 bg-dark text-light">
+            <div class="card-body" style="padding: 10px;">
+
+                {% for x in games %}
+                <h3 id="all_games"><a href='/show/{{ x.id }}'>{{ x.name }}</a></h3>
+                {% endfor %}
+                        <h1>All Games</h1>
+                        <table>
+                            <tr>
+                                <th>Game Name & Release Data</th>
+                                <th>Created By</th>
+                                <th>Actions</th>
+                            </tr>
+                        <tbody>
+                            {% for x in my_games %}
+                        <tr>
+                        
+                            <td>{{ x.name }} - {{ x.created_at }}</td>
+                            
+                            
+                            
+                            <td>{% for user in x.users %}<a href="/user_details/{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</a>{% endfor %}</td>
+                            
+                            
+                            <td><a href='/show/{{ x.id }}'><button>View</button></a><a href="/edit/{{ x.id }}" id="id"><button>Edit</button></a><a href="/destroy/{{ x.id }}" id="id"><button>Delete</button></a></td>
+                            
+                        </tr>
+                            {% endfor %}
+                </tbody>
+            </table>
+            </div>
+            
+        </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <title>Video Games</title>
+    <style>
+        body {
+            background-color: darkgray;
+        }
+        #top {
+            
+            display: flex;
+            width: 300px;
+            justify-content: flex-end;
+            align-items: center;
+            
+        }
+        #title {
+            color: blue;
+        }
+        .card {
+            text-align: center;
+            
+        }
+        p {
+            height: 100%;
+            width: 300px;
+            background-color: grey;
+        }
+        #header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 10%;
+            height: 100%;
+        }
+        #main {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 1px solid green;
+            color: green;
+        }
+
+        #favorites {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            margin: 20px;
+            
+        }
+        #created-by {
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #name {
+            font-size: 30px;
+            
+            
+        }
+        .card-footer {
+            color: red;
+        }
+
+        .card-text {
+            color: red;
+        }
+        form {
+            background-color: blue;
+            height: 100%;
+        }
+        #select {
+            background-color: white;
+        }
+        #button {
+            background-color: lightgreen
+        }
+        #delete {
+            background-color: red
+        }
+        #edit {
+            background-color: yellow;
+        }
+        #bottom {
+            background-color: black;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    
+        <h1>{{ user.first_name }}</h1>
+        <a href="/dashboard"><button>Home</button></a>
+        <a href="/logout"><Button>Logout</button></a>
+    
+    <div>
+        <h1 class="card col-3 bg-dark text-light" id="header">Video Games</h1>
+
+
+            <div class="card col-3 bg-dark text-light" id="container">
+                <div>
+                    <h2 id="title">{{ game['name'] }}</h2>
+                    
+                    
+                    <h3 class="card-text">Type:</h3>
+                    <p>{{game['type']}}</p>
+                    <h3 class="card-text">Description:</h3>
+                    <p>{{ game['description'] }}</p>
+                    <h3 class="card-text">Date Released:</h3>
+                    <p>{{game['year_released']}}</p>
+                    <h3  class="card-footer">Release Date:</h3>
+                    <p class="card-subtitle">{{ game['created_at'].strftime("%B %d, %Y  at %H:%M:%S") }}</p>
+                </div>
+                <h4 class="card-title text-primary" id="created-by">Created By</h4>
+                <div id="main">
+                
+                {% for x in gamecreator.users %}
+                    <p id="name">{{x.first_name }} {{x.last_name}}</p>
+                {% endfor %}
+                </div>
+        
+                <form action="/created/{{game.id}}" method="post" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <h2>Add Users Who Love This Game:</h2>
+                        <select name="user_id" id="select">
+                            {% for user in all_users %}
+                                <option value={{user.id}}>{{user.first_name}}</option>
+                            {% endfor %}
+                        </select>
+                        <input id="button" type="submit" value="Add User">
+                </form>
+                <div id="bottom">
+                    <a href="/destroy/{{game['id']}}"><button id="delete">Delete</button></a>
+                    <a href="/edit/{{game['id']}}"><button id="edit">Edit</button></a>
+                </div>
+            </div>
+        </div>
+
+</body>
+</html>

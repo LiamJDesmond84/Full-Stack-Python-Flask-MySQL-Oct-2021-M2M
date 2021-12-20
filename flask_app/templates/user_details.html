@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <title>User Details</title>
+</head>
+    <style>
+        body {
+            background-color: darkgray;
+
+
+        }
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 10%;
+        }
+        #header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #main {
+            height: 100%;
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 1px solid green;
+            color: green;
+            background-color: white;
+        }
+        #name {
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 1px solid green;
+            color: green;
+            background-color: white;
+        }
+        #favorites {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 1px solid black;
+            margin: 20px;
+        }
+        #header {
+            display: flex;
+        }
+        #top {
+            font-size: 25px;
+            margin: 10px 0;
+        }
+        .name {
+            color: orangered;
+        }
+        form {
+            background-color: blue;
+        }
+        #select {
+            background-color: white;
+        }
+        #button {
+            background-color: lightgreen
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>{{ usersession.first_name }}</h1>
+    <a href="/dashboard"><button>Home</button></a>
+    <a href="/logout"><Button>Logout</button></a>
+    
+    <div class="card col-4 bg-dark text-light" id="top">
+    <h2 class="card-title text-primary">Name:</h2>
+    <h4 class="name">{{ user.first_name }} {{ user.last_name }}</h4>
+    <h2 class="card-title text-primary">Email:</h2>
+    <p class="name">{{ user.email }}</p>
+    </div>
+    <div class="card col-3 bg-dark text-light">
+        <h1 class="card-text">Video Games</h1>
+            <div id="main">
+
+            <h3 class="card-text">Created Games</h3>
+            {% for x in usergames.games %}
+                <p class="card-text">{{ x.name }}</p>
+            {% endfor %}
+
+            </div>
+    
+                <form id="favorites" action="/createdgame/{{user.id}}" method="post">
+                    <h2>Add Game to User Favorites:</h2>
+                    <select name="game_id" id="select">
+                        {% for game in games %}
+                        <option value={{game.id}}>{{game.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Add Game" id="button">
+                </form>
+        </div>
+</body>
+</html>

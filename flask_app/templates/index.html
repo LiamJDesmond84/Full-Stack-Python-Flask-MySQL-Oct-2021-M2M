@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://yui.yahooapis.com/pure/0.5.0/pure-min.css" rel="stylesheet" />
+    <title>Login & Registration</title>
+    <style>
+        body {
+            background-color: darkgray;
+        }
+        #top {
+            margin-left: 300px;
+        }
+        #bottom {
+            font-size: 25px;
+        }
+        #all {
+            display: flex;
+            display: flex;
+            align-items: center;
+            font-size: 25px;
+            flex-direction: row;
+        }
+        .message {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: red;
+        }
+        input {
+            height: 25px;
+        }
+    </style>
+</head>
+<body style="width: 900px; margin-left: 40px;">
+    <div style="display: flex; justify-content: space-between; align-items: center">
+    <div id="all">
+    <form action="/register" method="post" id="top">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="alert alert-danger" role="alert">
+                {% for message in messages %}
+                    <p class="message">{{message}}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+        <div class="row mb-3">
+            <h1>Register</h1>
+            <label for="fname" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="fname" name="fname">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="lname" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="lname" name="lname">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="password" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more character" required>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Confirm Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword3" name="confirm" placeholder="Confirm Password" id="confirm_password" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+
+
+
+    <form action="/login" method="post" id="bottom">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="alert alert-danger" role="alert">
+                {% for message in messages %}
+                    <p class="message">{{message}}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+        <div class="row mb-3">
+            <h1>Login</h1>
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="inputEmail3" name="email">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword3" name="password">
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+</div>
+</body>
+</html>
